@@ -4,10 +4,10 @@ import static Common.ExceptionMessages.ExceptionMessages.*;
 
 public class Book {
 
-    private final String title;
-    private final String genre;
-    private final String author;
-    private final String publishedYear;
+    private String title;
+    private String genre;
+    private String author;
+    private String publishedYear;
     private boolean isAvailable;
 
     public Book(String title, String genre, String author, String publishedYear) {
