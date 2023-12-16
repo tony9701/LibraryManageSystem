@@ -1,6 +1,14 @@
 package Models.Book;
 
-public record Book(String title, String genre, String author,
-                   String publishedYear, boolean availabilityStatus) {
+public class Book {
+
+    private String title;
+    private String genre;
+    private String author;
+    private String publishedYear;
+    private boolean availabilityStatus;
+
+    
+
 
 }
