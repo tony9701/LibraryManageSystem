@@ -1,20 +1,23 @@
 package Models.Book;
+import java.time.Year;
+
 
 import static Common.ExceptionMessages.ExceptionMessages.*;
 
 public class Book {
-
+    private static final int CURRENT_YEAR = Year.now().getValue();
+    
     private String title;
     private String genre;
     private String author;
-    private String publishedYear;
+    private int publishedYear;
     private boolean isAvailable;
 
-    public Book(String title, String genre, String author, String publishedYear) {
+    protected Book(String title, String genre, String author, int publishedYear) {
         setTitle(title);
-        this.genre = genre;
-        this.author = author;
-        this.publishedYear = publishedYear;
+        setGenre(genre);
+        setAuthor(author);
+        setPublishedYear(publishedYear);
         this.isAvailable = true;
     }
 
@@ -34,12 +37,36 @@ public class Book {
         return genre;
     }
 
+    private void setGenre(String genre) {
+        if (genre == null || genre.isBlank()) {
+            throw new IllegalArgumentException(GENRE_EMPTY_OR_NULL);
+        }
+
+        this.genre = genre;
+    }
+
     public String getAuthor() {
         return author;
     }
 
-    public String getPublishedYear() {
+    private void setAuthor(String author) {
+        if (author == null || author.isBlank()) {
+            throw new IllegalArgumentException(AUTHOR_NAME_EMPTY_OR_NULL);
+        }
+
+        this.author = author;
+    }
+
+    public int getPublishedYear() {
         return publishedYear;
+    }
+
+    private void setPublishedYear(int publishedYear) {
+        if (publishedYear < 0 || publishedYear > CURRENT_YEAR) {
+            throw new IllegalArgumentException(INVALID_PUBLISHED_YEAR);
+        }
+
+        this.publishedYear = publishedYear;
     }
 
     public boolean isAvailable() {
