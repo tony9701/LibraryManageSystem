@@ -1,10 +1,13 @@
 package Models.LibraryMember;
 
 import Models.Book.Book;
+import Utils.Validator;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static Common.ExceptionMessages.ExceptionMessages.*;
 
 public class LibraryMemberImpl implements LibraryMember {
 
@@ -14,9 +17,9 @@ public class LibraryMemberImpl implements LibraryMember {
     private String email;
     private List<Book> borrowedBooks;
 
-    public LibraryMemberImpl(String name, String email) {
-        this.name = name;
-        this.email = email;
+    protected LibraryMemberImpl(String name, String email) {
+        setName(name);
+        setEmail(email);
         this.id = ++NEXT_ID;
         this.borrowedBooks = new ArrayList<>();
     }
@@ -31,9 +34,25 @@ public class LibraryMemberImpl implements LibraryMember {
         return name;
     }
 
+    private void setName(String name) {
+        if (Validator.nameIsValid(name)) {
+            this.name = name;
+        }
+
+        throw new IllegalArgumentException(MEMBER_NAME_EMPTY_OR_NULL);
+    }
+
     @Override
     public String getEmail() {
         return email;
+    }
+
+    private void setEmail(String email) {
+        if (Validator.emailIsValid(email)) {
+            this.email = email;
+        }
+
+        throw new IllegalArgumentException(MEMBER_EMAIL_NOT_VALID);
     }
 
     @Override
