@@ -16,12 +16,14 @@ public class LibraryMemberImpl implements LibraryMember {
     private String name;
     private String email;
     private List<Book> borrowedBooks;
+    private List<Book> reservedBooks;
 
     protected LibraryMemberImpl(String name, String email) {
         setName(name);
         setEmail(email);
         this.id = ++NEXT_ID;
         this.borrowedBooks = new ArrayList<>();
+        this.reservedBooks = new ArrayList<>();
     }
 
     @Override
@@ -58,6 +60,11 @@ public class LibraryMemberImpl implements LibraryMember {
     @Override
     public List<Book> getBorrowedBooks() {
         return Collections.unmodifiableList(borrowedBooks);
+    }
+
+    @Override
+    public List<Book> getReservedBooks() {
+        return Collections.unmodifiableList(reservedBooks);
     }
 
     @Override
