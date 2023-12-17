@@ -1,12 +1,11 @@
 package Models.Book;
-import Utils.Validator;
 
-import java.time.Year;
+import Utils.Validator;
 
 
 import static Common.ExceptionMessages.ExceptionMessages.*;
 
-public class Book {
+public class BookImpl implements Book {
 
     private String title;
     private String genre;
@@ -14,7 +13,7 @@ public class Book {
     private int publishedYear;
     private boolean isAvailable;
 
-    protected Book(String title, String genre, String author, int publishedYear) {
+    protected BookImpl(String title, String genre, String author, int publishedYear) {
         setTitle(title);
         setGenre(genre);
         setAuthor(author);
@@ -22,6 +21,7 @@ public class Book {
         this.isAvailable = true;
     }
 
+    @Override
     public String getTitle() {
         return title;
     }
@@ -34,6 +34,7 @@ public class Book {
         throw new IllegalArgumentException(BOOK_NAME_EMPTY_OR_NULL);
     }
 
+    @Override
     public String getGenre() {
         return genre;
     }
@@ -46,6 +47,7 @@ public class Book {
         throw new IllegalArgumentException(GENRE_EMPTY_OR_NULL);
     }
 
+    @Override
     public String getAuthor() {
         return author;
     }
@@ -58,6 +60,7 @@ public class Book {
         throw new IllegalArgumentException(AUTHOR_NAME_EMPTY_OR_NULL);
     }
 
+    @Override
     public int getPublishedYear() {
         return publishedYear;
     }
@@ -70,6 +73,7 @@ public class Book {
         throw new IllegalArgumentException(INVALID_PUBLISHED_YEAR);
     }
 
+    @Override
     public boolean isAvailable() {
         return isAvailable;
     }
@@ -78,11 +82,12 @@ public class Book {
         this.isAvailable = available;
     }
 
-
+    @Override
     public void checkIn() {
         setAvailable(true);
     }
 
+    @Override
     public void checkOut() {
         setAvailable(false);
     }
