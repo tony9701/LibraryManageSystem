@@ -1,11 +1,12 @@
 package Models.Book;
+import Utils.Validator;
+
 import java.time.Year;
 
 
 import static Common.ExceptionMessages.ExceptionMessages.*;
 
 public class Book {
-    private static final int CURRENT_YEAR = Year.now().getValue();
 
     private String title;
     private String genre;
@@ -26,11 +27,11 @@ public class Book {
     }
 
     private void setTitle(String title) {
-        if (title == null || title.isBlank()) {
-            throw new IllegalArgumentException(BOOK_NAME_EMPTY_OR_NULL);
+        if (Validator.nameIsValid(title)) {
+            this.title = title;
         }
 
-        this.title = title;
+        throw new IllegalArgumentException(BOOK_NAME_EMPTY_OR_NULL);
     }
 
     public String getGenre() {
@@ -38,11 +39,11 @@ public class Book {
     }
 
     private void setGenre(String genre) {
-        if (genre == null || genre.isBlank()) {
-            throw new IllegalArgumentException(GENRE_EMPTY_OR_NULL);
+        if (Validator.nameIsValid(genre)) {
+            this.genre = genre;
         }
 
-        this.genre = genre;
+        throw new IllegalArgumentException(GENRE_EMPTY_OR_NULL);
     }
 
     public String getAuthor() {
@@ -50,11 +51,11 @@ public class Book {
     }
 
     private void setAuthor(String author) {
-        if (author == null || author.isBlank()) {
-            throw new IllegalArgumentException(AUTHOR_NAME_EMPTY_OR_NULL);
+        if (Validator.nameIsValid(author)) {
+            this.author = author;
         }
 
-        this.author = author;
+        throw new IllegalArgumentException(AUTHOR_NAME_EMPTY_OR_NULL);
     }
 
     public int getPublishedYear() {
@@ -62,11 +63,11 @@ public class Book {
     }
 
     private void setPublishedYear(int publishedYear) {
-        if (publishedYear < 0 || publishedYear > CURRENT_YEAR) {
-            throw new IllegalArgumentException(INVALID_PUBLISHED_YEAR);
+        if (Validator.publishedYearIsValid(publishedYear)) {
+            this.publishedYear = publishedYear;
         }
 
-        this.publishedYear = publishedYear;
+        throw new IllegalArgumentException(INVALID_PUBLISHED_YEAR);
     }
 
     public boolean isAvailable() {
