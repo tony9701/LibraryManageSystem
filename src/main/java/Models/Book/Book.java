@@ -6,7 +6,7 @@ import static Common.ExceptionMessages.ExceptionMessages.*;
 
 public class Book {
     private static final int CURRENT_YEAR = Year.now().getValue();
-    
+
     private String title;
     private String genre;
     private String author;
