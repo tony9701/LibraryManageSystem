@@ -12,5 +12,6 @@ public class ExceptionMessages {
     //LibraryMember exceptions
     public static final String MEMBER_NAME_EMPTY_OR_NULL = "Invalid name!";
     public static final String MEMBER_EMAIL_NOT_VALID = "Invalid email address!";
+    public static final String BOOK_DOESNT_EXISTS = "The book doesn't exist.";
 
 }
