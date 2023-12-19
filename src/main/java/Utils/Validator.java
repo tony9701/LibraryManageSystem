@@ -1,8 +1,12 @@
 package Utils;
 
+import Models.Book.Book;
+
 import java.time.Year;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static Common.ExceptionMessages.ExceptionMessages.BOOK_DOESNT_EXISTS;
 
 public class Validator {
 
@@ -24,5 +28,9 @@ public class Validator {
     public static boolean emailIsValid(String email) {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
+    }
+
+    public static boolean bookExists(Book book) {
+        return book != null;
     }
 }
