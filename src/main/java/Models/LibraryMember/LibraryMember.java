@@ -15,6 +15,4 @@ public interface LibraryMember {
     Book borrowBook(String name);
     Book returnBook(String name);
     Book reserveBook(String name);
-    boolean borrowBook(Book book);
-    boolean reserveBook(Book book);
 }

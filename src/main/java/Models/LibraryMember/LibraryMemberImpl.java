@@ -16,14 +16,13 @@ public class LibraryMemberImpl implements LibraryMember {
     private String name;
     private String email;
     private List<Book> borrowedBooks;
-    private List<Book> reservedBooks;
+
 
     protected LibraryMemberImpl(String name, String email) {
         setName(name);
         setEmail(email);
         this.id = ++NEXT_ID;
         this.borrowedBooks = new ArrayList<>();
-        this.reservedBooks = new ArrayList<>();
     }
 
     @Override
@@ -63,11 +62,6 @@ public class LibraryMemberImpl implements LibraryMember {
     }
 
     @Override
-    public List<Book> getReservedBooks() {
-        return Collections.unmodifiableList(reservedBooks);
-    }
-
-    @Override
     public Book borrowBook(String name) {
         return null; //TODO IMPLEMENTATION
     }
@@ -80,23 +74,5 @@ public class LibraryMemberImpl implements LibraryMember {
     @Override
     public Book reserveBook(String name) {
         return null; //TODO IMPLEMENTATION
-    }
-
-    @Override
-    public boolean borrowBook(Book book) {
-        if (Validator.bookExists(book)) {
-            borrowedBooks.add(book);
-        }
-
-        throw new NullPointerException(BOOK_DOESNT_EXISTS);
-    }
-
-    @Override
-    public boolean reserveBook(Book book) {
-        if (Validator.bookExists(book)) {
-            reservedBooks.add(book);
-        }
-
-        throw new NullPointerException(BOOK_DOESNT_EXISTS);
     }
 }
