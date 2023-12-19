@@ -12,7 +12,7 @@ import static Common.ExceptionMessages.ExceptionMessages.*;
 public class LibraryMemberImpl implements LibraryMember {
 
     private static int NEXT_ID;
-    private int id;
+    private final int id;
     private String name;
     private String email;
     private List<Book> borrowedBooks;
@@ -80,5 +80,23 @@ public class LibraryMemberImpl implements LibraryMember {
     @Override
     public Book reserveBook(String name) {
         return null; //TODO IMPLEMENTATION
+    }
+
+    @Override
+    public boolean borrowBook(Book book) {
+        if (Validator.bookExists(book)) {
+            borrowedBooks.add(book);
+        }
+
+        throw new NullPointerException(BOOK_DOESNT_EXISTS);
+    }
+
+    @Override
+    public boolean reserveBook(Book book) {
+        if (Validator.bookExists(book)) {
+            reservedBooks.add(book);
+        }
+
+        throw new NullPointerException(BOOK_DOESNT_EXISTS);
     }
 }
