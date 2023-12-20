@@ -18,7 +18,7 @@ public class LibraryMemberImpl implements LibraryMember {
     private List<Book> borrowedBooks;
 
 
-    protected LibraryMemberImpl(String name, String email) {
+    public LibraryMemberImpl(String name, String email) {
         setName(name);
         setEmail(email);
         this.id = ++NEXT_ID;
