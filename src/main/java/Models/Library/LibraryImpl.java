@@ -1,6 +1,7 @@
 package Models.Library;
 
 import Models.Book.Book;
+import Models.LibraryMember.LibraryMember;
 
 import java.lang.reflect.Member;
 import java.util.Collections;
@@ -11,9 +12,13 @@ public class LibraryImpl implements Library {
 
     private HashMap<String, Book> books;
     private HashMap<String, Book> reservedBooks;
-    private HashMap<String, Member> members;
+    private HashMap<String, LibraryMember> members;
 
-
+    public LibraryImpl() {
+        this.books = new HashMap<>();
+        this.reservedBooks = new HashMap<>();
+        this.members = new HashMap<>();
+    }
 
     //returns unmodifiable list of books.
     @Override
@@ -29,27 +34,32 @@ public class LibraryImpl implements Library {
 
     //returns unmodifiable list of members.
     @Override
-    public List<Member> getMembers() {
+    public List<LibraryMember> getMembers() {
         return Collections.unmodifiableCollection(members.values()).stream().toList();
     }
 
     @Override
-    public boolean addBook() {
+    public boolean addBook(Book book) {
         return false;
     }
 
     @Override
-    public boolean removeBook() {
+    public boolean removeBook(Book book) {
         return false;
     }
 
     @Override
-    public boolean addMember() {
+    public Book searchBook(String title) {
         return false;
     }
 
     @Override
-    public boolean removeMember() {
+    public boolean addMember(LibraryMember member) {
+        return false;
+    }
+
+    @Override
+    public boolean removeMember(LibraryMember member) {
         return false;
     }
 }
