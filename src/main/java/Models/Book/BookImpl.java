@@ -13,7 +13,7 @@ public class BookImpl implements Book {
     private int publishedYear;
     private boolean isAvailable;
 
-    protected BookImpl(String title, String genre, String author, int publishedYear) {
+    public BookImpl(String title, String genre, String author, int publishedYear) {
         setTitle(title);
         setGenre(genre);
         setAuthor(author);
