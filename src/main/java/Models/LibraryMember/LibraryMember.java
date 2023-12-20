@@ -10,7 +10,6 @@ public interface LibraryMember {
     String getName();
     String getEmail();
     List<Book> getBorrowedBooks();
-    List<Book> getReservedBooks();
 
     Book borrowBook(String name);
     Book returnBook(String name);
