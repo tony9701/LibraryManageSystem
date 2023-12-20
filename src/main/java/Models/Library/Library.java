@@ -16,8 +16,9 @@ public interface Library {
 
     boolean addBook(Book book);
     boolean removeBook(Book book);
-    Book searchBook(String title);
     boolean addMember(LibraryMember member);
     boolean removeMember(LibraryMember member);
+    Book searchBook(String title);
+    LibraryMember searchMember(String name);
 
 }
