@@ -67,15 +67,6 @@ public class EngineImpl implements Engine {
         return result;
     }
 
-    private String addMember(String[] data) {
-        String memberName = data[1];
-        String email = data[2];
-
-        libraryMember = new LibraryMemberImpl(memberName, email);
-        library.addMember(libraryMember);
-        return String.format(MEMBER_ADDED, libraryMember.getName());
-    }
-
     private String addBook(String[] data) {
         String title = data[1];
         String genre = data[2];
@@ -93,5 +84,22 @@ public class EngineImpl implements Engine {
 
         library.removeBook(book);
         return String.format(BOOK_REMOVED, book.getTitle());
+    }
+
+    private String addMember(String[] data) {
+        String memberName = data[1];
+        String email = data[2];
+
+        libraryMember = new LibraryMemberImpl(memberName, email);
+        library.addMember(libraryMember);
+        return String.format(MEMBER_ADDED, libraryMember.getName());
+    }
+
+    private String removeMember(String[] data) {
+        String name = data[1];
+        libraryMember = library.searchMember(name);
+
+        library.removeMember(libraryMember);
+        return String.format(MEMBER_REMOVED, libraryMember.getName());
     }
 }
