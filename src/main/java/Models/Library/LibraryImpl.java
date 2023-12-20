@@ -49,11 +49,6 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public Book searchBook(String title) {
-        return false;
-    }
-
-    @Override
     public boolean addMember(LibraryMember member) {
         return false;
     }
@@ -61,5 +56,15 @@ public class LibraryImpl implements Library {
     @Override
     public boolean removeMember(LibraryMember member) {
         return false;
+    }
+
+    @Override
+    public Book searchBook(String title) {
+        return null;
+    }
+
+    @Override
+    public LibraryMember searchMember(String name) {
+        return null;
     }
 }
