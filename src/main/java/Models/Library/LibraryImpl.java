@@ -3,27 +3,33 @@ package Models.Library;
 import Models.Book.Book;
 import Models.LibraryMember.LibraryMember;
 
-import java.lang.reflect.Member;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 public class LibraryImpl implements Library {
 
-    private HashMap<String, Book> books;
+    private HashMap<String, Book> availableBooks;
     private HashMap<String, Book> reservedBooks;
+    private HashMap<String, Book> borrowedBooks;
     private HashMap<String, LibraryMember> members;
 
     public LibraryImpl() {
-        this.books = new HashMap<>();
+        this.availableBooks = new HashMap<>();
         this.reservedBooks = new HashMap<>();
+        this.borrowedBooks = new HashMap<>();
         this.members = new HashMap<>();
     }
 
     //returns unmodifiable list of books.
     @Override
-    public List<Book> getBooks() {
-        return Collections.unmodifiableCollection(books.values()).stream().toList();
+    public List<Book> getAvailableBooks() {
+        return Collections.unmodifiableCollection(availableBooks.values()).stream().toList();
+    }
+
+    @Override
+    public List<Book> getBorrowedBooks() {
+        return Collections.unmodifiableCollection(borrowedBooks.values()).stream().toList();
     }
 
     //returns unmodifiable list of reserved books.
