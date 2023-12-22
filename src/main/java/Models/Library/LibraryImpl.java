@@ -2,7 +2,9 @@ package Models.Library;
 
 import Models.Book.Book;
 import Models.LibraryMember.LibraryMember;
+import Utils.Validator;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -13,12 +15,14 @@ public class LibraryImpl implements Library {
     private HashMap<String, Book> reservedBooks;
     private HashMap<String, Book> borrowedBooks;
     private HashMap<String, LibraryMember> members;
+    private List<String> transactions;
 
     public LibraryImpl() {
         this.availableBooks = new HashMap<>();
         this.reservedBooks = new HashMap<>();
         this.borrowedBooks = new HashMap<>();
         this.members = new HashMap<>();
+        this.transactions = new ArrayList<>();
     }
 
     //returns unmodifiable list of books.
@@ -42,6 +46,18 @@ public class LibraryImpl implements Library {
     @Override
     public List<LibraryMember> getMembers() {
         return Collections.unmodifiableCollection(members.values()).stream().toList();
+    }
+
+    @Override
+    public List<String> getTransactions() {
+        return Collections.unmodifiableList(transactions);
+    }
+
+
+    @Override
+    public String setTransaction(String str) {
+        transactions.add(str);
+        return str;
     }
 
     @Override
