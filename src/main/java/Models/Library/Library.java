@@ -12,6 +12,8 @@ public interface Library {
     List<Book> getBorrowedBooks();
     List<Book> getReservedBooks();
     List<LibraryMember> getMembers();
+    List<String> getTransactions();
+    String setTransaction(String str);
 
 
     boolean addBook(Book book);
