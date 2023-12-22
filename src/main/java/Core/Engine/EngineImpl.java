@@ -102,4 +102,26 @@ public class EngineImpl implements Engine {
         library.removeMember(libraryMember);
         return String.format(MEMBER_REMOVED, libraryMember.getName());
     }
+
+    private String checkInBook(String[] data) {
+        String member = data[1];
+        String bookName = data[2];
+
+        libraryMember = library.searchMember(member);
+        book = library.searchBook(bookName);
+
+        libraryMember.returnBook(book);
+        return String.format(RETURN_BOOK, libraryMember.getName(), book.getTitle());
+    }
+
+    private String checkOutBook(String[] data) {
+        String member = data[1];
+        String bookName = data[2];
+
+        libraryMember = library.searchMember(member);
+        book = library.searchBook(bookName);
+
+        libraryMember.borrowBook(book);
+        return String.format(BORROW_BOOK, libraryMember.getName(), book.getTitle());
+    }
 }
