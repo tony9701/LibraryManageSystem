@@ -76,7 +76,7 @@ public class EngineImpl implements Engine {
         book = new BookImpl(title, genre, author, yearPublished);
 
         library.addBook(book);
-        return String.format(BOOK_ADDED, book.getTitle());
+        return library.setTransaction(String.format(BOOK_ADDED, book.getTitle()));
     }
 
     private String removeBook(String[] data) {
@@ -84,7 +84,7 @@ public class EngineImpl implements Engine {
         book = library.searchBook(title);
 
         library.removeBook(book);
-        return String.format(BOOK_REMOVED, book.getTitle());
+        return library.setTransaction(String.format(BOOK_REMOVED, book.getTitle()));
     }
 
     private String addMember(String[] data) {
@@ -93,7 +93,7 @@ public class EngineImpl implements Engine {
 
         libraryMember = new LibraryMemberImpl(memberName, email);
         library.addMember(libraryMember);
-        return String.format(MEMBER_ADDED, libraryMember.getName());
+        return library.setTransaction(String.format(MEMBER_ADDED, libraryMember.getName()));
     }
 
     private String removeMember(String[] data) {
@@ -101,7 +101,7 @@ public class EngineImpl implements Engine {
         libraryMember = library.searchMember(name);
 
         library.removeMember(libraryMember);
-        return String.format(MEMBER_REMOVED, libraryMember.getName());
+        return library.setTransaction(String.format(MEMBER_REMOVED, libraryMember.getName()));
     }
 
     private String checkInBook(String[] data) {
@@ -112,7 +112,7 @@ public class EngineImpl implements Engine {
         book = library.searchBook(bookName);
 
         libraryMember.returnBook(book);
-        return String.format(RETURN_BOOK, libraryMember.getName(), book.getTitle());
+        return library.setTransaction(String.format(RETURN_BOOK, libraryMember.getName(), book.getTitle()));
     }
 
     private String checkOutBook(String[] data) {
@@ -123,20 +123,31 @@ public class EngineImpl implements Engine {
         book = library.searchBook(bookName);
 
         libraryMember.borrowBook(book);
-        return String.format(BORROW_BOOK, libraryMember.getName(), book.getTitle());
+        return library.setTransaction(String.format(BORROW_BOOK, libraryMember.getName(), book.getTitle()));
     }
 
     private String displayAvailableBooks() {
-        return library.getAvailableBooks()
+        return "Available books:"
+                + System.lineSeparator()
+                + library.getAvailableBooks()
                 .stream()
                 .map(Book::getTitle)
                 .collect(Collectors.joining(System.lineSeparator()));
     }
 
     private String displayBorrowedBooks() {
-        return library.getBorrowedBooks()
+        return "Borrowed books:"
+                + System.lineSeparator()
+                + library.getBorrowedBooks()
                 .stream()
                 .map(Book::getTitle)
                 .collect(Collectors.joining(System.lineSeparator()));
+    }
+
+
+    private String displayTransactionHistory() {
+        return "Transactions history:"
+                + System.lineSeparator()
+                + library.getTransactions().stream().collect(Collectors.joining(System.lineSeparator()));
     }
 }
