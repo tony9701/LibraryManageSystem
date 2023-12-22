@@ -8,6 +8,7 @@ import Models.LibraryMember.LibraryMember;
 import Models.LibraryMember.LibraryMemberImpl;
 
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static Common.ConstantMessages.ConstantMessages.*;
 
@@ -61,7 +62,7 @@ public class EngineImpl implements Engine {
             case "CheckInBook" -> result = checkInBook(data);
             case "DisplayAvailableBooks" -> result = displayAvailableBooks();
             case "DisplayBorrowedBooks" -> result = displayBorrowedBooks();
-            case "TransactionHistory" -> result = transactionHistory();
+            case "TransactionHistory" -> result = displayTransactionHistory();
         }
 
         return result;
@@ -123,5 +124,19 @@ public class EngineImpl implements Engine {
 
         libraryMember.borrowBook(book);
         return String.format(BORROW_BOOK, libraryMember.getName(), book.getTitle());
+    }
+
+    private String displayAvailableBooks() {
+        return library.getAvailableBooks()
+                .stream()
+                .map(Book::getTitle)
+                .collect(Collectors.joining(System.lineSeparator()));
+    }
+
+    private String displayBorrowedBooks() {
+        return library.getBorrowedBooks()
+                .stream()
+                .map(Book::getTitle)
+                .collect(Collectors.joining(System.lineSeparator()));
     }
 }
