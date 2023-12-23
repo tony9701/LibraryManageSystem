@@ -65,10 +65,7 @@ public class LibraryImpl implements Library {
     @Override
     public void addBook(Book book) {
         //check if book already exist in the library and throw if so.
-        if (Validator.isBookExist(book, availableBooks) ||
-            Validator.isBookExist(book, borrowedBooks) ||
-            Validator.isBookExist(book, reservedBooks)) {
-
+        if (bookIsPresent(book.getTitle())) {
             throw new IllegalArgumentException(String.format(BOOK_ALREADY_EXIST, book.getTitle()));
         }
 
@@ -76,33 +73,37 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public void removeBook(Book book) {
-        if (Validator.isBookExist(book, availableBooks)) {
-            availableBooks.remove(book.getTitle());
-        } else if (Validator.isBookExist(book, borrowedBooks)) {
-            borrowedBooks.remove(book.getTitle());
-        } else if (Validator.isBookExist(book, reservedBooks)) {
-            reservedBooks.remove(book.getTitle());
+    public void removeBook(String title) {
+
+        if (availableBooks.containsKey(title)) {
+            availableBooks.remove(title);
+        } else if (borrowedBooks.containsKey(title)) {
+            borrowedBooks.remove(title);
+        } else if (reservedBooks.containsKey(title)) {
+            reservedBooks.remove(title);
+        } else {
+            throw new IllegalArgumentException(String.format(BOOK_NOT_EXIST, title));
         }
     }
 
     @Override
-    public boolean addMember(LibraryMember member) {
-        return false;
+    public void addMember(LibraryMember member) {
+
     }
 
     @Override
-    public boolean removeMember(LibraryMember member) {
-        return false;
-    }
+    public void removeMember(LibraryMember member) {
 
-    @Override
-    public Book searchBook(String title) {
-        return null;
     }
 
     @Override
     public LibraryMember searchMember(String name) {
         return null;
+    }
+
+    private boolean bookIsPresent(String title) {
+        return Validator.bookIsPresent(title, availableBooks) ||
+                Validator.bookIsPresent(title, borrowedBooks) ||
+                Validator.bookIsPresent(title, reservedBooks);
     }
 }
