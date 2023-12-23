@@ -29,6 +29,7 @@ public class BookImpl implements Book {
     private void setTitle(String title) {
         if (Validator.nameIsValid(title)) {
             this.title = title;
+            return;
         }
 
         throw new IllegalArgumentException(BOOK_NAME_EMPTY_OR_NULL);
@@ -42,6 +43,7 @@ public class BookImpl implements Book {
     private void setGenre(String genre) {
         if (Validator.nameIsValid(genre)) {
             this.genre = genre;
+            return;
         }
 
         throw new IllegalArgumentException(GENRE_EMPTY_OR_NULL);
@@ -55,6 +57,7 @@ public class BookImpl implements Book {
     private void setAuthor(String author) {
         if (Validator.nameIsValid(author)) {
             this.author = author;
+            return;
         }
 
         throw new IllegalArgumentException(AUTHOR_NAME_EMPTY_OR_NULL);
@@ -68,6 +71,7 @@ public class BookImpl implements Book {
     private void setPublishedYear(int publishedYear) {
         if (Validator.publishedYearIsValid(publishedYear)) {
             this.publishedYear = publishedYear;
+            return;
         }
 
         throw new IllegalArgumentException(INVALID_PUBLISHED_YEAR);
