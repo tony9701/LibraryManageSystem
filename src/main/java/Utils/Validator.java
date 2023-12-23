@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static Common.ExceptionMessages.ExceptionMessages.BOOK_DOESNT_EXISTS;
-
 public class Validator {
 
     private static final int CURRENT_YEAR = Year.now().getValue();
@@ -31,7 +29,7 @@ public class Validator {
         return matcher.matches();
     }
 
-    public static boolean isBookExist(Book book, HashMap<String, Book> bookRepo) {
-        return bookRepo.containsKey(book.getTitle());
+    public static boolean bookIsPresent(String title, HashMap<String, Book> bookRepo) {
+        return bookRepo.containsKey(title);
     }
 }
