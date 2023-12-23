@@ -16,10 +16,10 @@ public interface Library {
     String setTransaction(String str);
 
 
-    boolean addBook(Book book);
-    boolean removeBook(Book book);
-    boolean addMember(LibraryMember member);
-    boolean removeMember(LibraryMember member);
+    void addBook(Book book);
+    void removeBook(Book book);
+    void addMember(LibraryMember member);
+    void removeMember(LibraryMember member);
     Book searchBook(String title);
     LibraryMember searchMember(String name);
 
