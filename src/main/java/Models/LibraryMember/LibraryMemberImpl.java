@@ -64,17 +64,17 @@ public class LibraryMemberImpl implements LibraryMember {
     }
 
     @Override
-    public Book borrowBook(Book book) {
+    public Book borrowBook(String title) {
         return null; //TODO IMPLEMENTATION
     }
 
     @Override
-    public Book returnBook(Book book) {
+    public Book returnBook(String title) {
         return null; //TODO IMPLEMENTATION
     }
 
     @Override
-    public Book reserveBook(Book book) {
+    public Book reserveBook(String title) {
         return null; //TODO IMPLEMENTATION
     }
 }
