@@ -38,6 +38,7 @@ public class LibraryMemberImpl implements LibraryMember {
     private void setName(String name) {
         if (Validator.nameIsValid(name)) {
             this.name = name;
+            return;
         }
 
         throw new IllegalArgumentException(MEMBER_NAME_EMPTY_OR_NULL);
@@ -51,6 +52,7 @@ public class LibraryMemberImpl implements LibraryMember {
     private void setEmail(String email) {
         if (Validator.emailIsValid(email)) {
             this.email = email;
+            return;
         }
 
         throw new IllegalArgumentException(MEMBER_EMAIL_NOT_VALID);
