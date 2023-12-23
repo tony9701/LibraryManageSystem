@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import static Common.ExceptionMessages.ExceptionMessages.*;
+
 public class LibraryImpl implements Library {
 
     private HashMap<String, Book> availableBooks;
@@ -61,13 +63,27 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public boolean addBook(Book book) {
-        return false;
+    public void addBook(Book book) {
+        //check if book already exist in the library and throw if so.
+        if (Validator.isBookExist(book, availableBooks) ||
+            Validator.isBookExist(book, borrowedBooks) ||
+            Validator.isBookExist(book, reservedBooks)) {
+
+            throw new IllegalArgumentException(String.format(BOOK_ALREADY_EXIST, book.getTitle()));
+        }
+
+        availableBooks.put(book.getTitle(), book);
     }
 
     @Override
-    public boolean removeBook(Book book) {
-        return false;
+    public void removeBook(Book book) {
+        if (Validator.isBookExist(book, availableBooks)) {
+            availableBooks.remove(book.getTitle());
+        } else if (Validator.isBookExist(book, borrowedBooks)) {
+            borrowedBooks.remove(book.getTitle());
+        } else if (Validator.isBookExist(book, reservedBooks)) {
+            reservedBooks.remove(book.getTitle());
+        }
     }
 
     @Override
