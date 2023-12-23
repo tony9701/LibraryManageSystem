@@ -11,7 +11,7 @@ public interface LibraryMember {
     String getEmail();
     List<Book> getBorrowedBooks();
 
-    Book borrowBook(Book book);
-    Book returnBook(Book book);
-    Book reserveBook(Book book);
+    Book borrowBook(String title);
+    Book returnBook(String title);
+    Book reserveBook(String title);
 }
