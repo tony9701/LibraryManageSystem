@@ -35,8 +35,8 @@ public class EngineImpl implements Engine {
                 if ("Exit".equals(result)) {
                     break;
                 } else if ("Help".equals(result)) {
-                    printHelpInfo(); //TODO
-                    result = processInput();
+                    System.out.println(helpInfo());
+                    continue;
                 }
 
             } catch (NullPointerException | IllegalArgumentException e) {
@@ -45,6 +45,21 @@ public class EngineImpl implements Engine {
 
             System.out.println(result);
         }
+    }
+
+    private String helpInfo() {
+        return String.format("Commands:%n" +
+                "----------------------------------------------------------%n" +
+                "-> AddBook {title}, {genre}, {author}, {yearPublished}%n" +
+                "-> RemoveBook {title}%n" +
+                "-> AddMember {memberName}, {email}%n" +
+                "-> RemoveMember {memberName}" +
+                "-> BorrowBook {memberName}, {bookTitle}%n" +
+                "-> ReturnBook {memberName}, {bookTitle}%n" +
+                "-> Available Books%n" +
+                "-> Borrowed Books%n" +
+                "-> Transactions%n" +
+                "----------------------------------------------------------");
     }
 
     @Override
@@ -58,11 +73,13 @@ public class EngineImpl implements Engine {
             case "RemoveBook" -> result = removeBook(data);
             case "AddMember" -> result = addMember(data);
             case "RemoveMember" -> result = removeMember(data);
-            case "CheckOutBook" -> result = checkOutBook(data);
-            case "CheckInBook" -> result = checkInBook(data);
-            case "DisplayAvailableBooks" -> result = displayAvailableBooks();
-            case "DisplayBorrowedBooks" -> result = displayBorrowedBooks();
-            case "TransactionHistory" -> result = displayTransactionHistory();
+            case "BorrowBook" -> result = borrowBook(data);
+            case "ReturnBook" -> result = returnBook(data);
+            case "Available Books" -> result = displayAvailableBooks();
+            case "Borrowed Books" -> result = displayBorrowedBooks();
+            case "Transactions" -> result = displayTransactionHistory();
+            case "Help" -> result = "Help";
+            case "Exit" -> result = "Exit";
         }
 
         return result;
@@ -104,26 +121,26 @@ public class EngineImpl implements Engine {
         return library.setTransaction(String.format(MEMBER_REMOVED, libraryMember.getName()));
     }
 
-    private String checkInBook(String[] data) {
-        String member = data[1];
-        String bookName = data[2];
+    private String borrowBook(String[] data) {
+        String memberName = data[1];
+        String bookTitle = data[2];
 
-        libraryMember = library.searchMember(member);
-        book = library.searchBook(bookName);
-
-        libraryMember.returnBook(book);
-        return library.setTransaction(String.format(RETURN_BOOK, libraryMember.getName(), book.getTitle()));
-    }
-
-    private String checkOutBook(String[] data) {
-        String member = data[1];
-        String bookName = data[2];
-
-        libraryMember = library.searchMember(member);
-        book = library.searchBook(bookName);
+        libraryMember = library.searchMember(memberName);
+        book = library.searchBook(bookTitle);
 
         libraryMember.borrowBook(book);
         return library.setTransaction(String.format(BORROW_BOOK, libraryMember.getName(), book.getTitle()));
+    }
+
+    private String returnBook(String[] data) {
+        String memberName = data[1];
+        String bookTitle = data[2];
+
+        libraryMember = library.searchMember(memberName);
+        book = library.searchBook(bookTitle);
+
+        libraryMember.returnBook(book);
+        return library.setTransaction(String.format(RETURN_BOOK, libraryMember.getName(), book.getTitle()));
     }
 
     private String displayAvailableBooks() {
