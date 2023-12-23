@@ -17,10 +17,9 @@ public interface Library {
 
 
     void addBook(Book book);
-    void removeBook(Book book);
+    void removeBook(String title);
     void addMember(LibraryMember member);
     void removeMember(LibraryMember member);
-    Book searchBook(String title);
     LibraryMember searchMember(String name);
 
 }
