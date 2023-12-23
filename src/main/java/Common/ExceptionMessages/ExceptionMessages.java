@@ -14,4 +14,9 @@ public class ExceptionMessages {
     public static final String MEMBER_EMAIL_NOT_VALID = "Invalid email address!";
     public static final String BOOK_DOESNT_EXISTS = "The book doesn't exist.";
 
+
+    //Library exceptions
+    public static final String BOOK_ALREADY_EXIST = "%s is already added in the library!";
+
+
 }
