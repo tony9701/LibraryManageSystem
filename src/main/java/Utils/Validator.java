@@ -3,6 +3,7 @@ package Utils;
 import Models.Book.Book;
 
 import java.time.Year;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,7 +31,7 @@ public class Validator {
         return matcher.matches();
     }
 
-    public static boolean bookExists(Book book) {
-        return book != null;
+    public static boolean isBookExist(Book book, HashMap<String, Book> bookRepo) {
+        return bookRepo.containsKey(book.getTitle());
     }
 }
