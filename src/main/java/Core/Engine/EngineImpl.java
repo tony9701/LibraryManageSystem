@@ -64,7 +64,7 @@ public class EngineImpl implements Engine {
 
     @Override
     public String processInput() {
-        String result = null;
+        String result;
         String[] data = sc.nextLine().split("\\s+");
         String command = data[0];
 
@@ -80,6 +80,8 @@ public class EngineImpl implements Engine {
             case "Transactions" -> result = displayTransactionHistory();
             case "Help" -> result = "Help";
             case "Exit" -> result = "Exit";
+            default -> result = "Invalid command. Please enter valid command\n" +
+                    "or enter \"Help\" for commands list!";
         }
 
         return result;
@@ -98,9 +100,8 @@ public class EngineImpl implements Engine {
 
     private String removeBook(String[] data) {
         String title = data[1];
-        book = library.searchBook(title);
 
-        library.removeBook(book);
+        library.removeBook(title);
         return library.setTransaction(String.format(BOOK_REMOVED, book.getTitle()));
     }
 
@@ -126,7 +127,6 @@ public class EngineImpl implements Engine {
         String bookTitle = data[2];
 
         libraryMember = library.searchMember(memberName);
-        book = library.searchBook(bookTitle);
 
         libraryMember.borrowBook(book);
         return library.setTransaction(String.format(BORROW_BOOK, libraryMember.getName(), book.getTitle()));
@@ -137,7 +137,6 @@ public class EngineImpl implements Engine {
         String bookTitle = data[2];
 
         libraryMember = library.searchMember(memberName);
-        book = library.searchBook(bookTitle);
 
         libraryMember.returnBook(book);
         return library.setTransaction(String.format(RETURN_BOOK, libraryMember.getName(), book.getTitle()));
@@ -160,7 +159,6 @@ public class EngineImpl implements Engine {
                 .map(Book::getTitle)
                 .collect(Collectors.joining(System.lineSeparator()));
     }
-
 
     private String displayTransactionHistory() {
         return "Transactions history:"
