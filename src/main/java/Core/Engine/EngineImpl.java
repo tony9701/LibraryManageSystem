@@ -105,7 +105,7 @@ public class EngineImpl implements Engine {
         return library.setTransaction(String.format(BOOK_REMOVED, book.getTitle()));
     }
 
-    private String addMember(String[] data) {
+    private String addMember(String[] data) {  //TODO
         String memberName = data[1];
         String email = data[2];
 
@@ -114,7 +114,7 @@ public class EngineImpl implements Engine {
         return library.setTransaction(String.format(MEMBER_ADDED, libraryMember.getName()));
     }
 
-    private String removeMember(String[] data) {
+    private String removeMember(String[] data) {  //TODO
         String name = data[1];
         libraryMember = library.searchMember(name);
 
@@ -122,27 +122,27 @@ public class EngineImpl implements Engine {
         return library.setTransaction(String.format(MEMBER_REMOVED, libraryMember.getName()));
     }
 
-    private String borrowBook(String[] data) {
+    private String borrowBook(String[] data) {  //TODO
         String memberName = data[1];
         String bookTitle = data[2];
 
         libraryMember = library.searchMember(memberName);
 
-        libraryMember.borrowBook(book);
+        libraryMember.borrowBook(bookTitle);
         return library.setTransaction(String.format(BORROW_BOOK, libraryMember.getName(), book.getTitle()));
     }
 
-    private String returnBook(String[] data) {
+    private String returnBook(String[] data) {  //TODO
         String memberName = data[1];
         String bookTitle = data[2];
 
         libraryMember = library.searchMember(memberName);
 
-        libraryMember.returnBook(book);
+        libraryMember.returnBook(bookTitle);
         return library.setTransaction(String.format(RETURN_BOOK, libraryMember.getName(), book.getTitle()));
     }
 
-    private String displayAvailableBooks() {
+    private String displayAvailableBooks() {  //TODO
         return "Available books:"
                 + System.lineSeparator()
                 + library.getAvailableBooks()
@@ -151,7 +151,7 @@ public class EngineImpl implements Engine {
                 .collect(Collectors.joining(System.lineSeparator()));
     }
 
-    private String displayBorrowedBooks() {
+    private String displayBorrowedBooks() {  //TODO
         return "Borrowed books:"
                 + System.lineSeparator()
                 + library.getBorrowedBooks()
@@ -160,7 +160,7 @@ public class EngineImpl implements Engine {
                 .collect(Collectors.joining(System.lineSeparator()));
     }
 
-    private String displayTransactionHistory() {
+    private String displayTransactionHistory() {  //TODO
         return "Transactions history:"
                 + System.lineSeparator()
                 + library.getTransactions().stream().collect(Collectors.joining(System.lineSeparator()));

@@ -88,16 +88,16 @@ public class LibraryImpl implements Library {
 
     @Override
     public void addMember(LibraryMember member) {
-
+        //TODO
     }
 
     @Override
     public void removeMember(LibraryMember member) {
-
+        //TODO
     }
 
     @Override
-    public LibraryMember searchMember(String name) {
+    public LibraryMember searchMember(String name) {   //TODO
         return null;
     }
 
