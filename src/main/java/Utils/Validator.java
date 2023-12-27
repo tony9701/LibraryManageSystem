@@ -32,4 +32,20 @@ public class Validator {
     public static boolean bookIsPresent(String title, HashMap<String, Book> bookRepo) {
         return bookRepo.containsKey(title);
     }
+    public static boolean removeBookIfPresent(String title,
+                                              HashMap<String, Book> bookRepo1,
+                                              HashMap<String, Book> bookRepo2,
+                                              HashMap<String, Book> bookRepo3) {
+
+        Book book = null;
+        if (bookRepo1.containsKey(title)) {
+            book = bookRepo1.remove(title);
+        } else if (bookRepo2.containsKey(title)) {
+            book = bookRepo2.remove(title);
+        } else if (bookRepo3.containsKey(title)) {
+            book = bookRepo3.remove(title);
+        }
+
+        return book != null;
+    }
 }
