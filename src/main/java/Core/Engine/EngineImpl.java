@@ -125,13 +125,14 @@ public class EngineImpl implements Engine {
     private String borrowBook(String[] data) {  //TODO
         String memberName = data[1];
         String bookTitle = data[2];
+        Book book = library.bookIsAvailable(bookTitle);
 
-        if (library.bookIsAvailable(bookTitle)) {
+        libraryMember = library.searchMember(memberName);
+        libraryMember.borrowBook(book);
 
-            libraryMember = library.searchMember(memberName);
-            libraryMember.borrowBook(bookTitle);
+        // TODO continue from here - you need to remove the book from
+        // TODO    -  availableBooks and add it to borrowedBooks
 
-        }
 
         return library.setTransaction(String.format(BORROW_BOOK, libraryMember.getName(), book.getTitle()));
     }
