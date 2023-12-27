@@ -73,15 +73,10 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public void removeBook(String title) {
+    public void removeBook(String title) { // check for problems
+        boolean bookIsRemoved = Validator.removeBookIfPresent(title, availableBooks, borrowedBooks, reservedBooks);
 
-        if (availableBooks.containsKey(title)) {
-            availableBooks.remove(title);
-        } else if (borrowedBooks.containsKey(title)) {
-            borrowedBooks.remove(title);
-        } else if (reservedBooks.containsKey(title)) {
-            reservedBooks.remove(title);
-        } else {
+        if (!bookIsRemoved) {
             throw new IllegalArgumentException(String.format(BOOK_NOT_EXIST, title));
         }
     }
@@ -105,10 +100,21 @@ public class LibraryImpl implements Library {
         LibraryMember member = members.get(name);
 
         if (member == null) {
-            throw new IllegalArgumentException(String.format(MEMBER_NOT_EXIST, member.getName()));
+            throw new IllegalArgumentException(String.format(MEMBER_NOT_EXIST, name));
         }
 
         return member;
+    }
+
+    @Override
+    public boolean bookIsAvailable(String title) {
+        Book book = availableBooks.get(title);
+
+        if (book == null) {
+            throw new IllegalArgumentException(String.format(BOOK_NOT_AVAILABLE, title));
+        }
+
+        return true;
     }
 
     private boolean bookIsPresent(String title) {
