@@ -88,17 +88,26 @@ public class LibraryImpl implements Library {
 
     @Override
     public void addMember(LibraryMember member) {
-        //TODO
+        if (members.containsKey(member.getName())) {
+            throw new IllegalArgumentException(String.format(MEMBER_ALREADY_EXIST, member.getName()));
+        }
+
+        members.put(member.getName(), member);
     }
 
     @Override
-    public void removeMember(LibraryMember member) {
-        //TODO
+    public void removeMember(LibraryMember member) { // check if remove properly
+        if (members.containsKey(member.getName())) {
+            members.remove(member.getName());
+        } else {
+            throw new IllegalArgumentException(String.format(MEMBER_NOT_EXIST, member.getName()));
+        }
+
     }
 
     @Override
-    public LibraryMember searchMember(String name) {   //TODO
-        return null;
+    public LibraryMember searchMember(String name) {
+        return members.get(name);
     }
 
     private boolean bookIsPresent(String title) {
