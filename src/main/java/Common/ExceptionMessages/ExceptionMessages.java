@@ -18,6 +18,6 @@ public class ExceptionMessages {
     //Library exceptions
     public static final String BOOK_ALREADY_EXIST = "%s is already added in the library!";
     public static final String BOOK_NOT_EXIST = "%s isn't present in the library!";
-
-
+    public static final String MEMBER_ALREADY_EXIST = "%s has already a membership!";
+    public static final String MEMBER_NOT_EXIST = "%s isn't valid member!";
 }
