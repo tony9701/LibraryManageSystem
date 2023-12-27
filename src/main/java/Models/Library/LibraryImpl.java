@@ -107,14 +107,14 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public boolean bookIsAvailable(String title) {
+    public Book bookIsAvailable(String title) {
         Book book = availableBooks.get(title);
 
         if (book == null) {
             throw new IllegalArgumentException(String.format(BOOK_NOT_AVAILABLE, title));
         }
 
-        return true;
+        return book;
     }
 
     private boolean bookIsPresent(String title) {
