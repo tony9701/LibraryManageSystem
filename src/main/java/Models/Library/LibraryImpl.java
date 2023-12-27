@@ -97,17 +97,18 @@ public class LibraryImpl implements Library {
 
     @Override
     public void removeMember(LibraryMember member) { // check if remove properly
-        if (members.containsKey(member.getName())) {
-            members.remove(member.getName());
-        } else {
-            throw new IllegalArgumentException(String.format(MEMBER_NOT_EXIST, member.getName()));
-        }
-
+        members.remove(member.getName());
     }
 
     @Override
     public LibraryMember searchMember(String name) {
-        return members.get(name);
+        LibraryMember member = members.get(name);
+
+        if (member == null) {
+            throw new IllegalArgumentException(String.format(MEMBER_NOT_EXIST, member.getName()));
+        }
+
+        return member;
     }
 
     private boolean bookIsPresent(String title) {
