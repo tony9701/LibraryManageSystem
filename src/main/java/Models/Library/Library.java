@@ -21,6 +21,6 @@ public interface Library {
     void addMember(LibraryMember member);
     void removeMember(LibraryMember member);
     LibraryMember searchMember(String name);
-    boolean bookIsAvailable(String title);
+    Book bookIsAvailable(String title);
 
 }
