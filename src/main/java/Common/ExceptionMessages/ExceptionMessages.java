@@ -12,12 +12,13 @@ public class ExceptionMessages {
     //LibraryMember exceptions
     public static final String MEMBER_NAME_EMPTY_OR_NULL = "Invalid name!";
     public static final String MEMBER_EMAIL_NOT_VALID = "Invalid email address!";
-    public static final String BOOK_DOESNT_EXISTS = "The book doesn't exist.";
+
 
 
     //Library exceptions
     public static final String BOOK_ALREADY_EXIST = "%s is already added in the library!";
     public static final String BOOK_NOT_EXIST = "%s isn't present in the library!";
+    public static final String BOOK_NOT_AVAILABLE = "%s isn't available";
     public static final String MEMBER_ALREADY_EXIST = "%s has already a membership!";
     public static final String MEMBER_NOT_EXIST = "%s isn't valid member!";
 }
