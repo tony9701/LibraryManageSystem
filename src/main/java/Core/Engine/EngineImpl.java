@@ -126,9 +126,13 @@ public class EngineImpl implements Engine {
         String memberName = data[1];
         String bookTitle = data[2];
 
-        libraryMember = library.searchMember(memberName);
+        if (library.bookIsAvailable(bookTitle)) {
 
-        libraryMember.borrowBook(bookTitle);
+            libraryMember = library.searchMember(memberName);
+            libraryMember.borrowBook(bookTitle);
+
+        }
+
         return library.setTransaction(String.format(BORROW_BOOK, libraryMember.getName(), book.getTitle()));
     }
 
