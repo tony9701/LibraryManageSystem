@@ -64,8 +64,8 @@ public class LibraryMemberImpl implements LibraryMember {
     }
 
     @Override
-    public Book borrowBook(String title) {
-        return null; //TODO IMPLEMENTATION
+    public void borrowBook(Book book) {
+        borrowedBooks.add(book);
     }
 
     @Override
