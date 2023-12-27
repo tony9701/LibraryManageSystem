@@ -114,7 +114,7 @@ public class EngineImpl implements Engine {
         return library.setTransaction(String.format(MEMBER_ADDED, libraryMember.getName()));
     }
 
-    private String removeMember(String[] data) {  //TODO
+    private String removeMember(String[] data) {
         String name = data[1];
         libraryMember = library.searchMember(name);
 
