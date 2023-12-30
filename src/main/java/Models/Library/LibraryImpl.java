@@ -97,7 +97,7 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public void addReservedBook(String title) {
+    public void addReservedBook(String title) { //TODO  need reserve method
         Book book = availableBooks.remove(title);
 
         throwIfBookNull(title, book);
@@ -106,7 +106,7 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public Book removeReservedBook(String title) {
+    public Book removeReservedBook(String title) { //TODO  need reserve method
         Book book = reservedBooks.remove(title);
 
         throwIfBookNull(title, book);
@@ -142,7 +142,7 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public void removeMember(LibraryMember member) { // check if remove properly
+    public void removeMember(LibraryMember member) {
         members.remove(member.getName());
     }
 
