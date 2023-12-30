@@ -94,18 +94,19 @@ public class EngineImpl implements Engine {
         int yearPublished = Integer.parseInt(data[4]);
         book = new BookImpl(title, genre, author, yearPublished);
 
-        library.addAvailableBook(book);
+        library.addBook(book);
         return library.setTransaction(String.format(BOOK_ADDED, book.getTitle()));
     }
 
     private String removeBook(String[] data) {
         String title = data[1];
 
-        library.removeAvailableBook(title);
+        library.removeBook(title);
+
         return library.setTransaction(String.format(BOOK_REMOVED, book.getTitle()));
     }
 
-    private String addMember(String[] data) {  //TODO
+    private String addMember(String[] data) {
         String memberName = data[1];
         String email = data[2];
 
@@ -130,9 +131,8 @@ public class EngineImpl implements Engine {
         libraryMember = library.searchMember(memberName);
         libraryMember.borrowBook(book);
 
-        // TODO continue from here - you need to remove the book from
-        // TODO    -  availableBooks and add it to borrowedBooks
-
+        library.addBorrowedBook(bookTitle);
+        library.removeAvailableBook(bookTitle);
 
         return library.setTransaction(String.format(BORROW_BOOK, libraryMember.getName(), book.getTitle()));
     }
