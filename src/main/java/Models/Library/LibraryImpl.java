@@ -14,8 +14,8 @@ import static Common.ExceptionMessages.ExceptionMessages.*;
 public class LibraryImpl implements Library {
 
     private HashMap<String, Book> availableBooks;
-    private HashMap<String, Book> reservedBooks;   //TODO create addBook and removeBook methods!
-    private HashMap<String, Book> borrowedBooks;   //TODO create addBook and removeBook methods!
+    private HashMap<String, Book> reservedBooks;
+    private HashMap<String, Book> borrowedBooks;
     private HashMap<String, LibraryMember> members;
     private List<String> transactions;
 
@@ -63,7 +63,7 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public void addAvailableBook(Book book) {
+    public void addBook(Book book) {
         //check if book already exist in the library and throw if so.
         if (bookIsPresent(book.getTitle())) {
             throw new IllegalArgumentException(String.format(BOOK_ALREADY_EXIST, book.getTitle()));
@@ -73,32 +73,63 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public void removeAvailableBook(String title) { // check for problems
-        boolean bookIsRemoved = Validator.removeBookIfPresent(title, availableBooks, borrowedBooks, reservedBooks);
+    public void removeBook(String title) {
 
-        if (!bookIsRemoved) {
+        if (availableBooks.containsKey(title)) {
+            availableBooks.remove(title);
+        } else if (borrowedBooks.containsKey(title)) {
+            borrowedBooks.remove(title);
+        } else if (reservedBooks.containsKey(title)) {
+            reservedBooks.remove(title);
+        } else {
             throw new IllegalArgumentException(String.format(BOOK_NOT_EXIST, title));
         }
+
+    }
+
+    @Override
+    public Book removeAvailableBook(String title) { // check for problems
+        Book book = availableBooks.remove(title);
+
+        throwIfBookNull(title, book);
+
+        return book;
     }
 
     @Override
     public void addReservedBook(String title) {
+        Book book = availableBooks.remove(title);
 
+        throwIfBookNull(title, book);
+
+        reservedBooks.put(title, book);
     }
 
     @Override
-    public void removeReservedBook(String title) {
+    public Book removeReservedBook(String title) {
+        Book book = reservedBooks.remove(title);
 
+        throwIfBookNull(title, book);
+
+        return book;
     }
 
     @Override
     public void addBorrowedBook(String title) {
+        Book book = availableBooks.remove(title);
 
+        throwIfBookNull(title, book);
+
+        borrowedBooks.put(title, book);
     }
 
     @Override
-    public void removeBorrowedBook(String title) {
+    public Book removeBorrowedBook(String title) {
+        Book book = borrowedBooks.remove(title);
 
+        throwIfBookNull(title, book);
+
+        return book;
     }
 
     @Override
@@ -124,6 +155,12 @@ public class LibraryImpl implements Library {
         }
 
         return member;
+    }
+
+    private static void throwIfBookNull(String title, Book book) {
+        if (book == null) {
+            throw new IllegalArgumentException(String.format(BOOK_NOT_EXIST, title));
+        }
     }
 
     @Override
