@@ -47,6 +47,9 @@ public class EngineImpl implements Engine {
         }
     }
 
+
+    //TODO need to add reserve methods!
+
     private String helpInfo() {
         return String.format("Commands:%n" +
                 "----------------------------------------------------------%n" +
@@ -67,6 +70,8 @@ public class EngineImpl implements Engine {
         String result;
         String[] data = sc.nextLine().split("\\s+");
         String command = data[0];
+
+        //TODO need to add reserve methods!
 
         switch (command) {
             case "AddBook" -> result = addBook(data);
@@ -123,7 +128,7 @@ public class EngineImpl implements Engine {
         return library.setTransaction(String.format(MEMBER_REMOVED, libraryMember.getName()));
     }
 
-    private String borrowBook(String[] data) {  //TODO
+    private String borrowBook(String[] data) {
         String memberName = data[1];
         String bookTitle = data[2];
         Book book = library.bookIsAvailable(bookTitle);
@@ -137,14 +142,23 @@ public class EngineImpl implements Engine {
         return library.setTransaction(String.format(BORROW_BOOK, libraryMember.getName(), book.getTitle()));
     }
 
-    private String returnBook(String[] data) {  //TODO
+    private String returnBook(String[] data) {
         String memberName = data[1];
         String bookTitle = data[2];
 
         libraryMember = library.searchMember(memberName);
 
-        libraryMember.returnBook(bookTitle);
+        Book book = libraryMember.returnBook(bookTitle);
+        library.removeBorrowedBook(bookTitle);
+        library.addBook(book);
+
+        //TODO check if the book is reserved when returning!
+
         return library.setTransaction(String.format(RETURN_BOOK, libraryMember.getName(), book.getTitle()));
+    }
+
+    private String reserveBook(String[] data) {
+        //TODO
     }
 
     private String displayAvailableBooks() {  //TODO
