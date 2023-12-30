@@ -16,8 +16,12 @@ public interface Library {
     String setTransaction(String str);
 
 
-    void addBook(Book book);
-    void removeBook(String title);
+    void addAvailableBook(Book book);
+    void removeAvailableBook(String title);
+    void addReservedBook(String title);
+    void removeReservedBook(String title);
+    void addBorrowedBook(String title);
+    void removeBorrowedBook(String title);
     void addMember(LibraryMember member);
     void removeMember(LibraryMember member);
     LibraryMember searchMember(String name);
