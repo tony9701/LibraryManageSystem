@@ -5,6 +5,7 @@ import Utils.Validator;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import static Common.ExceptionMessages.ExceptionMessages.*;
@@ -15,14 +16,14 @@ public class LibraryMemberImpl implements LibraryMember {
     private final int id;
     private String name;
     private String email;
-    private List<Book> borrowedBooks;
+    private HashMap<String, Book> borrowedBooks;
 
 
     public LibraryMemberImpl(String name, String email) {
         setName(name);
         setEmail(email);
         this.id = ++NEXT_ID;
-        this.borrowedBooks = new ArrayList<>();
+        this.borrowedBooks = new HashMap<>();
     }
 
     @Override
@@ -60,17 +61,23 @@ public class LibraryMemberImpl implements LibraryMember {
 
     @Override
     public List<Book> getBorrowedBooks() {
-        return Collections.unmodifiableList(borrowedBooks);
+        return Collections.unmodifiableCollection(borrowedBooks.values()).stream().toList();
     }
 
     @Override
     public void borrowBook(Book book) {
-        borrowedBooks.add(book);
+        borrowedBooks.put(book.getTitle(), book);
     }
 
     @Override
     public Book returnBook(String title) {
-        return null; //TODO IMPLEMENTATION
+        Book book = borrowedBooks.remove(title);
+
+        if (book == null) {
+            throw new IllegalArgumentException(String.format(BOOK_NOT_EXIST, title));
+        }
+
+        return book;
     }
 
     @Override
