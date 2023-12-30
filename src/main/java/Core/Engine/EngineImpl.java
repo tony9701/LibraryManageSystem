@@ -94,14 +94,14 @@ public class EngineImpl implements Engine {
         int yearPublished = Integer.parseInt(data[4]);
         book = new BookImpl(title, genre, author, yearPublished);
 
-        library.addBook(book);
+        library.addAvailableBook(book);
         return library.setTransaction(String.format(BOOK_ADDED, book.getTitle()));
     }
 
     private String removeBook(String[] data) {
         String title = data[1];
 
-        library.removeBook(title);
+        library.removeAvailableBook(title);
         return library.setTransaction(String.format(BOOK_REMOVED, book.getTitle()));
     }
 
