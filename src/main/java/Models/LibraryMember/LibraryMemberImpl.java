@@ -17,6 +17,7 @@ public class LibraryMemberImpl implements LibraryMember {
     private String name;
     private String email;
     private HashMap<String, Book> borrowedBooks;
+    private HashMap<String, Book> reservedBooks;
 
 
     public LibraryMemberImpl(String name, String email) {
@@ -24,6 +25,7 @@ public class LibraryMemberImpl implements LibraryMember {
         setEmail(email);
         this.id = ++NEXT_ID;
         this.borrowedBooks = new HashMap<>();
+        this.reservedBooks = new HashMap<>();
     }
 
     @Override
@@ -81,7 +83,8 @@ public class LibraryMemberImpl implements LibraryMember {
     }
 
     @Override
-    public Book reserveBook(String title) {
-        return null; //TODO IMPLEMENTATION
+    public void reserveBook(Book book) {
+        reservedBooks.put(book.getTitle(), book);
     }
+
 }

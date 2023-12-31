@@ -19,13 +19,13 @@ public interface Library {
     void addBook(Book book);
     void removeBook(String title);
     Book removeAvailableBook(String title);
-    void addReservedBook(String title);
+    Book addReservedBook(String title);
     Book removeReservedBook(String title);
     void addBorrowedBook(String title);
     Book removeBorrowedBook(String title);
     void addMember(LibraryMember member);
     void removeMember(LibraryMember member);
     LibraryMember searchMember(String name);
-    Book bookIsAvailable(String title);
+    Book getAvailableBook(String title);
 
 }

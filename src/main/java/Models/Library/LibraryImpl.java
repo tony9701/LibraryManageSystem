@@ -14,7 +14,7 @@ import static Common.ExceptionMessages.ExceptionMessages.*;
 public class LibraryImpl implements Library {
 
     private HashMap<String, Book> availableBooks;
-    private HashMap<String, Book> reservedBooks;
+    private HashMap<String, Book> reservedBooks; //TODO fix this create reservation class
     private HashMap<String, Book> borrowedBooks;
     private HashMap<String, LibraryMember> members;
     private List<String> transactions;
@@ -88,7 +88,7 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public Book removeAvailableBook(String title) { // check for problems
+    public Book removeAvailableBook(String title) {
         Book book = availableBooks.remove(title);
 
         throwIfBookNull(title, book);
@@ -97,12 +97,13 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public void addReservedBook(String title) { //TODO  need reserve method
-        Book book = availableBooks.remove(title);
+    public Book addReservedBook(String title) { //TODO  need reserve method
+        Book book = borrowedBooks.get(title);
 
         throwIfBookNull(title, book);
 
         reservedBooks.put(title, book);
+        return book;
     }
 
     @Override
@@ -164,7 +165,7 @@ public class LibraryImpl implements Library {
     }
 
     @Override
-    public Book bookIsAvailable(String title) {
+    public Book getAvailableBook(String title) {
         Book book = availableBooks.get(title);
 
         if (book == null) {

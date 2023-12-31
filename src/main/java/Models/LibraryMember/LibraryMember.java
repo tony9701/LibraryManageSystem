@@ -13,5 +13,5 @@ public interface LibraryMember {
 
     void borrowBook(Book book);
     Book returnBook(String title);
-    Book reserveBook(String title);
+    void reserveBook(Book book);
 }

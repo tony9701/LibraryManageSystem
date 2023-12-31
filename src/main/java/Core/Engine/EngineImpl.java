@@ -7,10 +7,12 @@ import Models.Library.LibraryImpl;
 import Models.LibraryMember.LibraryMember;
 import Models.LibraryMember.LibraryMemberImpl;
 
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import static Common.ConstantMessages.ConstantMessages.*;
+import static Common.ExceptionMessages.ExceptionMessages.BOOK_NOT_AVAILABLE;
 
 public class EngineImpl implements Engine {
 
@@ -59,6 +61,7 @@ public class EngineImpl implements Engine {
                 "-> RemoveMember {memberName}" +
                 "-> BorrowBook {memberName}, {bookTitle}%n" +
                 "-> ReturnBook {memberName}, {bookTitle}%n" +
+                "-> ReserveBook {memberName}, {bookTitle}%n" +
                 "-> Available Books%n" +
                 "-> Borrowed Books%n" +
                 "-> Transactions%n" +
@@ -80,6 +83,7 @@ public class EngineImpl implements Engine {
             case "RemoveMember" -> result = removeMember(data);
             case "BorrowBook" -> result = borrowBook(data);
             case "ReturnBook" -> result = returnBook(data);
+            case "ReserveBook" -> result = reserveBook(data);
             case "Available Books" -> result = displayAvailableBooks();
             case "Borrowed Books" -> result = displayBorrowedBooks();
             case "Transactions" -> result = displayTransactionHistory();
@@ -131,7 +135,7 @@ public class EngineImpl implements Engine {
     private String borrowBook(String[] data) {
         String memberName = data[1];
         String bookTitle = data[2];
-        Book book = library.bookIsAvailable(bookTitle);
+        Book book = library.getAvailableBook(bookTitle);
 
         libraryMember = library.searchMember(memberName);
         libraryMember.borrowBook(book);
@@ -158,7 +162,14 @@ public class EngineImpl implements Engine {
     }
 
     private String reserveBook(String[] data) {
-        //TODO
+        String memberName = data[1];
+        String bookTitle = data[2];
+
+        libraryMember = library.searchMember(memberName);
+        Book book = library.addReservedBook(bookTitle);
+        libraryMember.reserveBook(book);
+
+        return library.setTransaction(String.format(BOOK_RESERVED, memberName, bookTitle));
     }
 
     private String displayAvailableBooks() {  //TODO
