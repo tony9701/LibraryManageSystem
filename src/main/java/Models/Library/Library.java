@@ -2,6 +2,7 @@ package Models.Library;
 
 import Models.Book.Book;
 import Models.LibraryMember.LibraryMember;
+import Models.Reservation.Reservation;
 
 
 import java.util.List;
@@ -20,12 +21,12 @@ public interface Library {
     void removeBook(String title);
     Book removeAvailableBook(String title);
     Book addReservedBook(String title);
-    Book removeReservedBook(String title);
+    Reservation removeReservation(String title);
     void addBorrowedBook(String title);
     Book removeBorrowedBook(String title);
     void addMember(LibraryMember member);
     void removeMember(LibraryMember member);
     LibraryMember searchMember(String name);
     Book getAvailableBook(String title);
-
+    boolean reservedBookChecker(String title);
 }
