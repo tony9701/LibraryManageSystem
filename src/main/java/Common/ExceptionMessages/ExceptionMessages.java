@@ -21,4 +21,10 @@ public class ExceptionMessages {
     public static final String BOOK_NOT_AVAILABLE = "%s isn't available";
     public static final String MEMBER_ALREADY_EXIST = "%s has already a membership!";
     public static final String MEMBER_NOT_EXIST = "%s isn't valid member!";
+
+
+    //Reservation exceptions
+    public static final String RESERVATION_NOT_EXIST = "Reservation is not existing!";
+    public static final String RESERVATION_ALREADY_EXIST = "%s is already reserved!";
+
 }
