@@ -158,6 +158,15 @@ public class EngineImpl implements Engine {
 
         //TODO check if the book is reserved when returning!
 
+        // 1. check if book is already reserved
+        // 2. if it reserved, remove it from reservationList and add it to the person who reserved it.
+        // 3. if it's not reserved ignore.
+
+
+
+
+
+
         return library.setTransaction(String.format(RETURN_BOOK, libraryMember.getName(), book.getTitle()));
     }
 
