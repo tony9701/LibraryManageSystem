@@ -87,4 +87,15 @@ public class LibraryMemberImpl implements LibraryMember {
         reservedBooks.put(book.getTitle(), book);
     }
 
+    @Override
+    public Book removeReservedBook(String title) {
+        Book book = reservedBooks.remove(title);
+
+        if (book == null) {
+            throw new IllegalArgumentException(String.format(BOOK_NOT_EXIST, title));
+        }
+
+        return book;
+    }
+
 }
