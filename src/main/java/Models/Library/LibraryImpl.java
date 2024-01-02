@@ -2,19 +2,22 @@ package Models.Library;
 
 import Models.Book.Book;
 import Models.LibraryMember.LibraryMember;
+import Models.Reservation.Reservation;
+import Models.Reservation.ReservationImpl;
 import Utils.Validator;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static Common.ExceptionMessages.ExceptionMessages.*;
 
 public class LibraryImpl implements Library {
 
     private HashMap<String, Book> availableBooks;
-    private HashMap<String, Book> reservedBooks; //TODO fix this create reservation class
+    private HashMap<String, Reservation> reservedBooks; //TODO fix this create reservation class
     private HashMap<String, Book> borrowedBooks;
     private HashMap<String, LibraryMember> members;
     private List<String> transactions;
@@ -41,7 +44,10 @@ public class LibraryImpl implements Library {
     //returns unmodifiable list of reserved books.
     @Override
     public List<Book> getReservedBooks() {
-        return Collections.unmodifiableCollection(reservedBooks.values()).stream().toList();
+        return Collections.unmodifiableCollection(reservedBooks.values())
+                .stream()
+                .map(Reservation::getBook)
+                .collect(Collectors.toList());
     }
 
     //returns unmodifiable list of members.
@@ -101,14 +107,16 @@ public class LibraryImpl implements Library {
         Book book = borrowedBooks.get(title);
 
         throwIfBookNull(title, book);
+        Reservation reservation = createReservation(title, book);
 
-        reservedBooks.put(title, book);
+        reservedBooks.put(title, reservation);
+
         return book;
     }
 
     @Override
-    public Book removeReservedBook(String title) { //TODO  need reserve method
-        Book book = reservedBooks.remove(title);
+    public Book removeReservedBook(String title) { // check if remove
+        Book book = reservedBooks.remove(title).getBook();
 
         throwIfBookNull(title, book);
 
@@ -177,7 +185,10 @@ public class LibraryImpl implements Library {
 
     private boolean bookIsPresent(String title) {
         return Validator.bookIsPresent(title, availableBooks) ||
-                Validator.bookIsPresent(title, borrowedBooks) ||
-                Validator.bookIsPresent(title, reservedBooks);
+                Validator.bookIsPresent(title, borrowedBooks);
+    }
+
+    private Reservation createReservation(String name, Book book) {
+        return new ReservationImpl(name, book);
     }
 }
