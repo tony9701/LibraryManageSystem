@@ -2,8 +2,9 @@ package Models.Reservation;
 
 import Models.Book.Book;
 
-public class Reservation {
-    private String personName;
-    private Book reservedBook;
+public interface Reservation {
+
+    String getPersonName();
+    Book getBook();
 
 }
