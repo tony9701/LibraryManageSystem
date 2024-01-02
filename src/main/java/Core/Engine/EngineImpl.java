@@ -6,6 +6,7 @@ import Models.Library.Library;
 import Models.Library.LibraryImpl;
 import Models.LibraryMember.LibraryMember;
 import Models.LibraryMember.LibraryMemberImpl;
+import Models.Reservation.Reservation;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -153,17 +154,28 @@ public class EngineImpl implements Engine {
         libraryMember = library.searchMember(memberName);
 
         Book book = libraryMember.returnBook(bookTitle);
-        library.removeBorrowedBook(bookTitle);
-        library.addBook(book);
+
+
 
         //TODO check if the book is reserved when returning!
 
+
+
+
         // 1. check if book is already reserved
-        // 2. if it reserved, remove it from reservationList and add it to the person who reserved it.
-        // 3. if it's not reserved ignore.
+        if (library.reservedBookChecker(bookTitle)) {
+            // 2. if it reserved, remove it from reservationList and add it to the person who reserved it.
 
+            Reservation reservation = library.removeReservation(bookTitle);
+            String reservationName = reservation.getPersonName();
 
+            library.searchMember(reservationName).removeReservedBook(bookTitle);
+            library.searchMember(reservationName).borrowBook(book);
+        }
+        // 3. if it's not reserved just removed it from the borrowedBooks and add it to availableBooks.
 
+        library.removeBorrowedBook(bookTitle);
+        library.addBook(book);
 
 
 
